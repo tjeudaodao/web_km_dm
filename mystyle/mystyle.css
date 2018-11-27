@@ -1,0 +1,218 @@
+.vieninput {
+	border-radius: 25px;
+}.nutTO {
+	width: 300px;
+	height: 150px;
+	border-radius: 20px;
+}
+.khoichonngay p {
+	margin-top: 0;
+	margin-bottom: 3px;
+}
+.center {
+	display: flex;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+.centerMain{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	flex-direction: column;
+}
+.centerMain > div {
+	margin: 10px;
+}
+.duoicung {
+	position: fixed;
+	bottom: 10px;
+	text-align: center;
+}
+.main {
+	min-width: 300px;
+	max-width: 600px;
+	background-color: white;
+	margin: 8px auto; 
+}
+.masp {
+	display: inline-block;
+	width: 180px;
+	text-align: center;
+}
+.scan {
+	min-width: 70%;
+	max-width: 90%;
+	height: 60px;
+	font-size: 25px;
+}
+div#khoinhap div, div#khoinhap input{
+	display: inline-block;
+	font-size: 14px;
+}
+div#khoianh div {
+	display: inline-block;
+}
+.noidung {
+	border-radius: 5%;
+}
+
+#interactive.viewport {
+	position: relative; 
+	width: 100%; 
+	height: auto; 
+	overflow: hidden; 
+	text-align: center;
+}
+#interactive.viewport > canvas, #interactive.viewport > video {
+	max-width: 100%;
+	width: 100%;
+}
+canvas.drawing, canvas.drawingBuffer {
+	position: absolute; 
+	left: 0; 
+	top: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 6px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.fa-check-square {
+	color: green;
+}
+tbody#bodytableVM td {
+	vertical-align: middle;
+
+}
+tbody#bodytableVM td button {
+	vertical-align: middle;
+	border-radius: 4px;
+	font-size: 12px;
+}
+table#bangVM thead {
+	line-height: 5px;
+}
+table#bangVM thead tr{
+	background-color: #9BEEEC;
+}
+table#bangVM thead tr{
+	display: block;
+}
+table#bangVM tbody {
+	display: block;
+	overflow-y: scroll;
+	height: 35vh;
+}
+
+table#table-hts thead tr{
+	display: block;
+}
+table#table-hts tbody {
+	display: block;
+	overflow-y: scroll;
+	height: 50vh;
+}
+table#bangVM tr {
+	cursor: pointer;
+}
+.maudongtr {
+	background-color: #E7E9FC;
+}
+.khunganh {
+	position: relative;
+}
+.khunganh img {
+	opacity: 1;
+}
+.khunganh .loadinganh {
+	display: none;
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.khunganh .mahang_anh {
+	position: absolute;
+	bottom: 0;
+	left: 18%;
+	
+}
+.khunganh .mahang_anh p {
+	padding: 0;
+	margin: 0;
+}
+@media screen and (min-width: 320px) {
+    .noidung {
+    	height: 80px;
+    }
+    .fontchu {
+    	font-size: 40px;
+    }
+    div#pagecheckKM button {
+		border-radius: 10px;
+	}
+	.berongnhapBarcode {
+		width: 40%;
+	}
+}
+@media screen and (min-width: 360px) {
+    .noidung {
+    	height: 120px;
+    }
+    .fontchu {
+    	font-size: 45px;
+    }
+    div#pagecheckKM button {
+		border-radius: 15px;
+	}
+	.berongnhapBarcode {
+		width: 45%;
+	}
+}
+@media screen and (min-width: 384px) {
+    .noidung {
+    	height: 130px;
+    }
+    .fontchu {
+    	font-size: 50px;
+    }
+    div#pagecheckKM button {
+		border-radius: 15px;
+	}
+	.berongnhapBarcode {
+		width: 50%;
+	}
+}
+@media screen and (min-width: 412px) {
+    .noidung {
+    	height: 150px;
+    }
+    .fontchu {
+    	font-size: 55px;
+    }
+    div#pagecheckKM button {
+		border-radius: 15px;
+	}
+	.berongnhapBarcode {
+		width: 55%;
+	}
+}
