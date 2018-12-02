@@ -30,7 +30,8 @@ if (!isset($_SESSION['checkKM'])) {
 					<p class="col-6">Dữ liệu mới nhất ngày: </p>
 					<strong class="col-4 text-danger"><p id="ngaycapnhat"></p></strong>
 				</div> <!-- phan hien thi thong tin du lieu cap nhat moi nhat -->
-				<div class="my-1 d-inline-flex" id="">
+				<div class="my-1 d-flex" id="nhapdulieuKM">
+					
 					<input type="text" name="barcode" placeholder="Nhập barcode" class="form-control flex-grow-1 berongnhapBarcode vieninput" id="barcode" onclick="this.value='';">
 					<div class="px-1">
 						<button type="button" class="btn btn-default" type="submit" name="timmasp" id="timkiem"><i class="fas fa-search mx-1"></i>Tìm</button>
@@ -55,13 +56,13 @@ if (!isset($_SESSION['checkKM'])) {
 											<button type="button" class="btn btn-primary col-3" id="timtheoMatong"><i class="fas fa-search mx-1"></i>Tìm</button>
 										</div>
 											
-										<div class="table-responsive text-secondary">
+										<div class="table-responsive text-secondary ">
 											<table id="table-hts" class="table">
 												<thead>
 													<tr>
-														<th width="30%">Mã tổng</th>
-														<th width="30%">Giá gốc</th>
-														<th width="30%">Số giảm</th>
+														<th >Mã tổng</th>
+														<th >Giá gốc</th>
+														<th >Số giảm</th>
 													</tr>
 												</thead>
 												<tbody id="bangKm">

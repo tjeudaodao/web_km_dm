@@ -1,3 +1,4 @@
+
 .vieninput {
 	border-radius: 25px;
 }.nutTO {
@@ -32,7 +33,6 @@
 }
 .main {
 	min-width: 300px;
-	max-width: 600px;
 	background-color: white;
 	margin: 8px auto; 
 }
@@ -154,11 +154,55 @@ table#bangVM tr {
 	position: absolute;
 	bottom: 0;
 	left: 18%;
-	
+	font-size: 20px;
 }
 .khunganh .mahang_anh p {
 	padding: 0;
 	margin: 0;
+}
+.khunganh img {
+	height: 165px;
+	width: 150px;
+}
+.heederVM {
+	display: inline-flex;
+	font-size: 12px;
+}
+.footerVM {
+	display: none;
+}
+.khoianhchonngayVM {
+	display: inline-flex;
+}
+.khoichonngay input {
+	font-size: 12px;
+	border-radius: 4px;
+}
+.khoichonngay p {
+	font-size: 18px;
+}
+.khoithongtin {
+	font-size: 13px;
+}
+.khoithongtin #mota {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 35px;
+}
+.khoithongtin #ghichu {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 40px;
+}
+.khoithanVM .table-responsive {
+	font-size: 12px;
+}
+.hrstyle {
+	visibility: : hidden;
+	margin: 0;
+}
+.hienthiDKVM {
+	display: none;
 }
 @media screen and (min-width: 320px) {
     .noidung {
@@ -173,6 +217,10 @@ table#bangVM tr {
 	.berongnhapBarcode {
 		width: 40%;
 	}
+	table#table-hts th {
+		min-width: 80px;
+	}
+
 }
 @media screen and (min-width: 360px) {
     .noidung {
@@ -186,6 +234,9 @@ table#bangVM tr {
 	}
 	.berongnhapBarcode {
 		width: 45%;
+	}
+	table#table-hts th {
+		min-width: 100px;
 	}
 }
 @media screen and (min-width: 384px) {
@@ -215,4 +266,110 @@ table#bangVM tr {
 	.berongnhapBarcode {
 		width: 55%;
 	}
+	table#table-hts th {
+		min-width: 120px;
+	}
 }
+@media screen and (min-width: 768px){
+	body {
+		background-color: #F8F8FC;
+	}
+	.khoianhchonngayVM {
+		background-color: #FDFDFF;
+		border-radius: 10px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.berongnhapBarcode {
+		width: 60%;
+	}
+	table#table-hts th {
+		min-width: 150px;
+	}
+	#nhapdulieuKM button {
+		width: 150px;
+	}
+	.heederVM {
+		font-size: 14px;
+		margin: 10px;
+	}
+	.khunganh img {
+		height: 200px;
+		width: 200px;
+	}
+	.khunganh .mahang_anh {
+		font-size: 25px;
+		left: 25%;
+	}
+	.footerVM {
+		display: block;
+		margin: 30px auto;
+	}
+	.footerVM button {
+		width: 200px;
+		margin: auto 10px;
+	}
+	.khoichonngay .form-group{
+		width: 200px;
+	}
+	.khoichonngay input {
+		font-size: 18px;
+	}
+	.khoichonngay p {
+		font-size: 25px;
+		width: 200px;
+	}
+	.khoichonngay {
+		margin-bottom: 25px;
+	}
+	.khoianhchonngayVM {
+		width: 35%;
+		float: left;
+		display: block;
+		text-align: center;
+	}
+	.khoianhchonngayVM .col-6 {
+		width: 100%;
+		margin: 50px auto;
+	}
+	.khoianhchonngayVM .xuatinVM {
+		width: 100%;
+		margin: 50px 15px;
+	}
+	.khoithanVM{
+		width: 60%;
+		float: right;
+	}
+	.khoithongtin {
+		font-size: 16px;
+	}
+	.khoithongtin #mota, .khoithongtin #ghichu {
+		max-height: 80px;
+	}
+	.khoithanVM .table-responsive {
+		font-size: 16px;
+	}
+	table#bangVM tbody {
+		height: 50vh;
+	}
+	tbody#bodytableVM td button {
+		font-size: 16px;
+	}
+	#bangVM .cottrunghangVM {
+		width: 10%;
+	}
+	.khunganh .loadinganh {
+	    left: 50%;
+	}
+	.hrstyle1 {
+		visibility: hidden;
+	}
+	.hrstyle {
+		visibility: :visibility;
+	}
+	.hienthiDKVM {
+		display: block;
+	}
+}
+
+/* css cho page print */
+

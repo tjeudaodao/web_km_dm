@@ -26,7 +26,7 @@ var config = {
 	  	firebase.initializeApp(config);
 	  	const db = firebase.database();
 function dangnhap(){
-	var tencuahang = $("#tendangnhap").val();
+	var tencuahang = $("#tendangnhap").val().toLowerCase();
 	var passIn = $("#matkhaudangnhap").val();
 	var taikhoanref = db.ref().child('dangnhap/taikhoan/' + tencuahang);
 	if (tencuahang != null && tencuahang != '') {

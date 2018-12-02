@@ -1,10 +1,11 @@
 $(document).ready(function(){
 	//load dau tien, load ngay moi nhat show bang du lieu
-	//laysongayVM();
-/*	$('#modalloadVM').on('hidden.bs.modal', function () {
+	laysongayVM();
+	//nhapFB2();
+	$('#modalloadVM').on('hidden.bs.modal', function () {
     	func_realtime();
 	})
- */ 
+  
     //nhapfirebase();
     // su kien khi chon ngay tu select
     $("select").on('change', function(){
@@ -41,12 +42,12 @@ $(document).ready(function(){
 	$(document).on("click", "#bodytableVM .btn", function(e){
 		e.stopPropagation();
 		var maspbt = $(this).attr("name");
-		$("#hienthimatongVM").html(maspbt);
-		var trangthairef = db.ref().child('ngayduocban/' + ngaychonVM + '/' + maspbt + '/taikhoancnf/' + tencuahangVM);
+		
+		var trangthairef = db_2.ref().child('ngayduocban/' + ngaychonVM + '/' + maspbt + '/taikhoancnf/' + tencuahangVM);
 		var realtime = db.ref().child('updatetrunghang/'+tencuahangVM);
 		trangthairef.once('value', function(snapshottt){
 			if (snapshottt.val().trangthaitrung == 'Đã Trưng Bán'){
-				var update = {trangthaitrung : ''};
+				var update = {trangthaitrung : '-'};
 				var updatereal = {
 					id : { name : 50000},
 					masp : {
@@ -86,7 +87,7 @@ $(document).ready(function(){
 				realtime.update(updatereal);
 			}
 		});
-		
+		$("#hienthimatongVM").html(maspbt);
 
 	})
 	//su ken khi click vao nut loc ma tong
@@ -94,6 +95,7 @@ $(document).ready(function(){
 		if (e.keyCode == 13) {
 			var kitu = $("#nhapmatong").val();
 			if ( kitu != '' && kitu != null){
+				oluuMotaghichu = {};
 				loctheomatongVM(kitu);
 			}
 		}
@@ -102,10 +104,25 @@ $(document).ready(function(){
 		var kitu = $("#nhapmatong").val();
 		console.log(kitu);
 		if ( kitu != '' && kitu != null){
+			oluuMotaghichu = {};
 			loctheomatongVM(kitu);
 		}
 	});
-
+	// in bang danh muc theo ngay
+	$("#btnIndanhmuc").click(function(){
+		var ngaychon = chuyensothanhngay(ngaychonVM);
+		var content = document.getElementById('bangVM');
+		var wo = window.open("","","width= 1000,height= 720");
+		wo.document.write('<html><head><style>@media print{.dontprint{display:none;}}</style><title>---hts---</title></head><body><center><h4>Danh mục ngày '+ngaychon+'</h4></center>') + '</body></html>';
+		wo.document.write(content.outerHTML);
+		wo.document.close();
+		wo.focus();
+		wo.print();
+		wo.close();
+	});
+	$("#btnXuatexcel").click(function(){
+		alert('Chuc nang chua hoan thien');
+	});
 });
 // khoi tao ket noi firebase, cac bien toan cuc
 var config = {
@@ -118,6 +135,18 @@ var config = {
 	  	};
 firebase.initializeApp(config);
 const db = firebase.database();
+// firebase database thu 2
+var config_2 = {
+    apiKey: "AIzaSyAHo-uSUBHbaU4aRh-AVNN1mi2cAYe0F4U",
+    authDomain: "danhmucvm-cnf-database.firebaseapp.com",
+    databaseURL: "https://danhmucvm-cnf-database.firebaseio.com",
+    projectId: "danhmucvm-cnf-database",
+    storageBucket: "",
+    messagingSenderId: "705045425427"
+  };
+var oFirebase_2 = firebase.initializeApp(config_2,"oFirebase_2");
+const db_2 = oFirebase_2.database();
+
 var oluuMotaghichu = {};
 var ngaychonVM = "";
 var dongDaChon = '0';
@@ -136,32 +165,32 @@ function chuyenngaythanhso(ngayvao){
 }
 
 function loadbangtheongaychon(ngaychon){
-	var ngayref = db.ref().child('ngayduocban/' + ngaychon);
+	var ngayref = db_2.ref().child('ngayduocban/' + ngaychon);
 	ngayref.once('value', function(snapshot){
 		$('#bodytableVM tr').remove();
-			snapshot.forEach(function(masnapshot){
-				var obluu = {};
-				var thamso = '';
-				var masp = masnapshot.key;
-				thamso += '<tr id="'+masp+'">';
-				thamso += '<td width="20%">'+masp+'</td>';
-				thamso += '<td width="60%" id="chude'+masp+'">'+masnapshot.val().chude+'</td>';
-				var trangthai = masnapshot.val().taikhoancnf[tencuahangVM].trangthaitrung;
-				if(trangthai == 'Đã Trưng Bán'){
-					thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
-				}
-				else{
-					thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-2x"></i></td>';
-				}
-				thamso += '<td width="10%"><button type="button" class="btn btn-warning" name="'+masp+'"><i class="fas fa-pen"></i></button></td>';
-				
-				thamso += '</tr>';
-				$('#bodytableVM').append(thamso);
-				obluu.mota = masnapshot.val().mota;
-				obluu.ghichu = masnapshot.val().ghichu;
-				oluuMotaghichu[masp] = obluu;
-			});
+		snapshot.forEach(function(masnapshot){
+			var obluu = {};
+			var thamso = '';
+			var masp = masnapshot.key;
+			thamso += '<tr id="'+masp+'">';
+			thamso += '<td width="20%">'+masp+'</td>';
+			thamso += '<td width="60%" id="chude'+masp+'">'+masnapshot.val().chude+'</td>';
+			var trangthai = masnapshot.val().taikhoancnf[tencuahangVM].trangthaitrung;
+			if(trangthai == 'Đã Trưng Bán'){
+				thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
+			}
+			else{
+				thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-2x"></i></td>';
+			}
+			thamso += '<td width="10%" class="dontprint"><button type="button" class="btn btn-warning" name="'+masp+'"><i class="fas fa-pen"></i></button></td>';
 			
+			thamso += '</tr>';
+			$('#bodytableVM').append(thamso);
+			obluu.mota = masnapshot.val().mota;
+			obluu.ghichu = masnapshot.val().ghichu;
+			oluuMotaghichu[masp] = obluu;
+		});
+		
 	});
 }
 // lay anh tu firestore
@@ -187,7 +216,7 @@ function loadingAnh(){
 
 // lay so ngay co data
 function laysongayVM(){
-	var ngayref = db.ref().child('ngayduocban').orderByKey();
+	var ngayref = db_2.ref().child('ngayduocban').orderByKey();
 	ngayref.once('value', function(snap){
 		var kq = [];
 		snap.forEach(function(hsnap){
@@ -198,6 +227,7 @@ function laysongayVM(){
 			$("#chonngayVM").append('<option>'+chuyensothanhngay(kq[i])+'</option>');
 		}
 		$("#taikhoandangnhap").html(tencuahangVM);
+		ngaychonVM = kq[0];
 		loadbangtheongaychon(kq[0]);
 	})
 }
@@ -213,18 +243,41 @@ function func_realtime(){
 		$("#lingaymoinhat").html('Ngày dữ liệu mới: <strong class="text-info">' +chuyensothanhngay(snap.val().ngaymoinhat.tenngay)  + '</strong>');
 		$("#lifilemoinhat").html('File dữ liệu mới: <strong class="text-info">' +snap.val().filemoi.tenfile + '</strong>');
 		$("#modalloadbangmoiVM").modal('show');
+		$('.tenfilemoinhatVM').html(snap.val().filemoi.tenfile);
 		setTimeout(function(){$("#modalloadbangmoiVM").modal('hide');},2000);
 	});
 }
 //loc ma tong
 function loctheomatongVM(kitu){
 	var kituupper = kitu.toUpperCase();
-	var ngayref = db.ref().child('ngayduocban');
+	var ngayref = db_2.ref().child('ngayduocban');
 	ngayref.once('value', function(snap){
+		$('#bodytableVM tr').remove();
 		snap.forEach(function(csnap){
 			csnap.forEach(function(ccsnap){
 				if (ccsnap.key.includes(kituupper)){
-					console.log(ccsnap.val());
+
+					var obluu = {};
+					var thamso = '';
+					var masp = ccsnap.key;
+					thamso += '<tr id="'+masp+'">';
+					thamso += '<td width="20%">'+masp+'</td>';
+					thamso += '<td width="30%" id="chude'+masp+'">'+ccsnap.val().chude+'</td>';
+					thamso += '<td width="30%">'+ccsnap.val().ngayduocban+'</td>';
+					var trangthai = ccsnap.val().taikhoancnf[tencuahangVM].trangthaitrung;
+					if(trangthai == 'Đã Trưng Bán'){
+						thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
+					}
+					else{
+						thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-2x"></i></td>';
+					}
+					thamso += '<td width="10%" ><button type="button" class="btn btn-warning" name="'+masp+'"><i class="fas fa-pen"></i></button></td>';
+					
+					thamso += '</tr>';
+					$('#bodytableVM').append(thamso);
+					obluu.mota = ccsnap.val().mota;
+					obluu.ghichu = ccsnap.val().ghichu;
+					oluuMotaghichu[masp] = obluu;
 				}
 			});
 		});
