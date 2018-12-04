@@ -32,7 +32,7 @@ if (!isset($_SESSION['checkKM'])) {
 				</div> <!-- phan hien thi thong tin du lieu cap nhat moi nhat -->
 				<div class="my-1 d-flex" id="nhapdulieuKM">
 					
-					<input type="text" name="barcode" placeholder="Nhập barcode" class="form-control flex-grow-1 berongnhapBarcode vieninput" id="barcode" onclick="this.value='';">
+					<input type="search" name="barcode" placeholder="Nhập barcode" class="form-control flex-grow-1 berongnhapBarcode vieninput" id="barcode" onclick="this.value='';">
 					<div class="px-1">
 						<button type="button" class="btn btn-default" type="submit" name="timmasp" id="timkiem"><i class="fas fa-search mx-1"></i>Tìm</button>
 					</div>
@@ -52,7 +52,7 @@ if (!isset($_SESSION['checkKM'])) {
 									</div>
 									<div class="modal-body">
 										<div class="row my-2 mx-2 justify-content-between">
-											<input type="text" name="nhapmatong" placeholder="Nhập giá trị gần đúng" class="form-control col-8 vieninput" id="textMatong" onclick="this.value=''">
+											<input type="search" name="nhapmatong" placeholder="Nhập giá trị gần đúng" class="form-control col-8 vieninput" id="textMatong" onclick="this.value=''">
 											<button type="button" class="btn btn-primary col-3" id="timtheoMatong"><i class="fas fa-search mx-1"></i>Tìm</button>
 										</div>
 											

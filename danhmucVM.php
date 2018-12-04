@@ -25,12 +25,14 @@ session_start();
 	<link rel="stylesheet" type="text/css" href="mystyle/mystyle.css">
 
 	<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js"></script>
+	<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 	<script type="text/javascript" src="myjs/tinhtoan_vm.js"></script>
 	<link rel="icon" href="picture\chan-cho.png" type="image/png" sizes="16x16">
 </head>
 <body onload="loadkhoidong()">
 	<div class="container">
-		<div class="heederVM my-1">
+		<div class="headerVM my-1">
 			<a href="index.php" class="mx-2"><i class="fas fa-angle-double-left"></i></a>
 			<p class="">Tài khoản: </p>
 			<strong class="col text-danger"><p id="taikhoandangnhap"></p></strong>
@@ -57,7 +59,7 @@ session_start();
 				
 					<div class="form-group">
 						<div class='input-group'>
-		                    <input type='text' class="form-control text-center" id="nhapmatong" placeholder="Lọc mã tổng">
+		                    <input type='search' class="form-control text-center" id="nhapmatong" placeholder="Lọc mã tổng">
 		                    <div class="input-group-append">
 		                    	<button class="btn btn-secondary nuttimVM" type="button"><i class="fas fa-search"></i></button>
 		                    		
@@ -76,7 +78,7 @@ session_start();
 				<!-- footer -->
 				<div class="xuatinVM">
 					<div class="footerVM">
-						<button class="btn btn-secondary" id="btnXuatexcel"><i class="far fa-file-excel mx-2"></i>Xuất Excel</button>
+						<button class="btn btn-info" id="btnChonxuatexcel"><i class="far fa-file-excel mx-2"></i>Xuất Excel</button>
 					</div>
 					<div class="footerVM">
 						<button class="btn btn-secondary" id="btnIndanhmuc"><i class="fas fa-print mx-2"></i>In danh mục</button>
@@ -87,16 +89,31 @@ session_start();
 			<div class="khoithanVM">
 				<div class="khoithongtin">
 					<div class="row">
-						<p class="col-4 ">- Chủ đề:</p>
+						<p class="labelthongtinVM ">- Chủ đề:</p>
 						<p class="col bg-light text-left mr-2" id="chude">--</p>
 					</div>
 					<div class="row">
-						<p class="col-4 ">- Mô tả:</p>
+						<p class="labelthongtinVM ">- Mô tả:</p>
 						<p class="col bg-light text-left mr-2" id="mota">--</p>
 					</div>
 					<div class="row">
-						<p class="col-4 ">- Ghi chú:</p>
+						<p class="labelthongtinVM ">- Ghi chú:</p>
 						<p class="col bg-light text-left mr-2" id="ghichu">--</p>
+					</div>
+					<hr class="hrstyle">
+					<div class="thongsobangVM text-center">
+						<div>
+							<p>Tổng mã:</p> 
+							<p class="soluongVM" id="somahangVM"></p>	
+						</div>
+						<div>
+							<p>Mã chưa trưng:</p> 
+							<p class="soluongVM" id="somachuatrungVM"></p>
+						</div>
+						<div>
+							<input type="checkbox" id="checkHienthitrunghangVM" name="set-name" class="switch-input">
+							<label for="checkHienthitrunghangVM" class="switch-label">Hiển thị</label>
+						</div>
 					</div>
 				</div>
 				<div class="table-responsive text-secondary">
@@ -116,8 +133,16 @@ session_start();
 				</div>
 			</div>
 			
-
-			
+			<!--fix bottom thongbao -->
+			<div class="fixThongbao">
+				<div>
+					<span>
+			        	<i class="fas fa-bell fa-stack-2x"></i>
+			    	</span>
+			    	<span class="sothongbao"></span>
+				</div>
+				
+			</div>
 			<!-- modal huongdan su dung -->
 			<div class="modal fade" id="modalloadVM">
 				<div class="modal-dialog modal-dialog-centered">
@@ -146,16 +171,44 @@ session_start();
 				
 			</div>
 			<!-- modal khi co du lieu moi-->
-			<div class="modal fade" id="modalloadbangmoiVM">
+			<div class="modal fade" id="modalThongbaoVM">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<div class="modal-header"><h4 id="showtencuahang" class="text-info "></h4></div>
+						<div class="modal-header">
+							<h4 class="text-info ">Thông báo!</h4>
+							<button class="close" data-dismiss="modal" aria-label="close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 						<div class="modal-body text-secondary">
-							<br>
-							<ul>
-								<li id="lingaymoinhat"></li>
-								<li id="lifilemoinhat"></li>
+							<ul id="gachthongbao">
 							</ul>
+							<hr>
+							<button type="button" class="btn btn-warning btnrefreshVM text-center">Làm mới thông báo (Refresh)</button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!-- modal khi co du lieu moi-->
+			<div class="modal fade" id="modalXuatexcelVM">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="text-info ">Xuất excel theo khoảng ngày chọn!</h4>
+							<button class="close" data-dismiss="modal" aria-label="close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body text-secondary">
+							<p>Chọn từ ngày: (Format: YYYYMMDD _ năm tháng ngày)</p>
+							<select class="form-control text-center text-info font-weight-bold" id="xuatexcelFromVM" style="border-radius: 4px;">
+					    	</select>
+					    	<p>Đến ngày:</p>
+					    	<select class="form-control text-center text-info font-weight-bold" id="xuatexcelToVM" style="border-radius: 4px;">
+					    	</select>
+							<hr>
+							<button type="button" class="btn btn-warning btnxuatexcelVM text-center">Xuất Excel</button>
 						</div>
 					</div>
 				</div>
