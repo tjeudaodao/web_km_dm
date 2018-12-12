@@ -9,6 +9,7 @@ $(document).ready(function(){
     $("#chonngayVM").on('change', function(){
     	objToancuc.ngaychonVM = chuyenngaythanhso($(this).val());
         oluuMotaghichu = {};
+        document.getElementById('checkHienthitrunghangVM').checked = false;
         loadbangtheongaychon(objToancuc.ngaychonVM);
     });
     // su kien khi click chon dong trong bang
@@ -41,8 +42,14 @@ $(document).ready(function(){
 		e.stopPropagation();
 		var maspbt = $(this).attr("name");
 		var checkTrung = document.getElementById("checkHienthitrunghangVM");
-
-		var trangthairef = db_2.ref().child('ngayduocban/' + objToancuc.ngaychonVM + '/' + maspbt + '/taikhoancnf/' + tencuahangVM);
+		var vngaychon = "";
+		if (objToancuc.locHang) {
+			vngaychon = chuyenngaythanhso($("#ngay"+maspbt+"").html());
+		}
+		else {
+			vngaychon = objToancuc.ngaychonVM;
+		}
+		var trangthairef = db_2.ref().child('ngayduocban/' + vngaychon + '/' + maspbt + '/taikhoancnf/' + tencuahangVM);
 		var realtime = db.ref().child('updatetrunghang/'+tencuahangVM);
 		trangthairef.once('value', function(snapshottt){
 			if (snapshottt.val().trangthaitrung == 'Đã Trưng Bán'){
@@ -53,7 +60,7 @@ $(document).ready(function(){
 						tenma : maspbt,
 						trangthai : ''
 					},
-					ngaychon : { tenngay : objToancuc.ngaychonVM}
+					ngaychon : { tenngay : vngaychon}
 				};
 				trangthairef.update(update); // update thanh chua trung
 				if ($('#trangthai'+maspbt+' i').hasClass('fa-check-square')){
@@ -75,7 +82,7 @@ $(document).ready(function(){
 						tenma : maspbt,
 						trangthai : 'Đã Trưng Bán'
 					},
-					ngaychon : { tenngay : objToancuc.ngaychonVM}
+					ngaychon : { tenngay : vngaychon}
 				};
 				trangthairef.update(update); //update thanh da trung
 				if ($('#trangthai'+maspbt+' i').hasClass('fa-check-square') == false){
@@ -120,7 +127,7 @@ $(document).ready(function(){
 	})
 	// in bang danh muc theo ngay
 	$("#btnIndanhmuc").click(function(){
-		var ngaychon = chuyensothanhngay(ngaychonVM);
+		var ngaychon = chuyensothanhngay(objToancuc.ngaychonVM);
 		var content = document.getElementById('bangVM');
 		var wo = window.open("","","width= 1000,height= 720");
 		wo.document.write('<html><head><style>@media print{.dontprint{display:none;}}</style><title>---hts---</title></head><body><center><h4>Danh mục ngày '+ngaychon+'</h4></center>') + '</body></html>';
@@ -153,8 +160,9 @@ $(document).ready(function(){
 	});
 	// lam moi lai khu vuc thong bao
 	$(".btnrefreshVM").click(function(){
-		$("#gachthongbao").remove();
+		$("#gachthongbao").empty();
 		$(".sothongbao").html('');
+		objToancuc.soThongbao = 0;
 		$("#modalThongbaoVM").modal('hide');
 	});
 });
@@ -188,6 +196,7 @@ const db_2 = oFirebase_2.database();
 	let bienDemSoMaChuaTrung = 0;
 	let bienThongbao = 0;
 	let bienRandom = 0;
+	let bienLochang = false;
 
 	var objToancuc = {
 		get ngaychonVM() {
@@ -234,6 +243,12 @@ const db_2 = oFirebase_2.database();
 		},
 		set soRandom(val) {
 			bienRandom = val;
+		},
+		get locHang(){
+			return bienLochang;
+		},
+		set locHang(val){
+			bienLochang = val;
 		}
 	};
 }
@@ -251,12 +266,14 @@ function chuyensothanhngay(sovao){
 }
 function chuyenngaythanhso(ngayvao){
 	var chuoiso = ngayvao.toString();
-	var bieuthuc = /(\d{2})-(\d{2})-(\d{4})/g;
-	return chuoiso.replace(bieuthuc,'$3$2$1');
+	var bieuthuc = /(\d{2})(-|\/)(\d{2})(-|\/)(\d{4})/g;
+	return chuoiso.replace(bieuthuc,'$5$3$1');
 }
 
 function loadbangtheongaychon(ngaychon){
 	objToancuc.tongsoma = objToancuc.tongmachuatrung = 0;
+	objToancuc.locHang = false;
+
 	var ngayref = db_2.ref().child('ngayduocban/' + ngaychon);
 	ngayref.once('value', function(snapshot){
 		$('#bodytableVM tr').remove();
@@ -343,17 +360,17 @@ function func_realtime(){
 				kq.push(hsnap.key);
 			});
 			kq.sort(function(a, b){return b - a});
-			if (snap.val() != kq[0]){
-				$("#chonngayVM option").remove();
-				for (i = 0; i< kq.length ; i++){
-					$("#chonngayVM").append('<option>'+chuyensothanhngay(kq[i])+'</option>');
-				} 
-				addThongbao('Có danh mục mới');
-				objToancuc.ngaychonVM = kq[0];
-				loadbangtheongaychon(kq[0]);
-				document.getElementById('checkHienthitrunghangVM').checked = false;
-				notifi('Có danh mục mới !');
-			}
+			
+			$("#chonngayVM option").remove();
+			for (i = 0; i< kq.length ; i++){
+				$("#chonngayVM").append('<option>'+chuyensothanhngay(kq[i])+'</option>');
+			} 
+			var ngaymoinhat = chuyensothanhngay(kq[0]);
+			addThongbao('Danh mục mới nhất ngày: '+ ngaymoinhat);
+			objToancuc.ngaychonVM = kq[0];
+			loadbangtheongaychon(kq[0]);
+			document.getElementById('checkHienthitrunghangVM').checked = false;
+			notifi('Có danh mục mới !', 'Danh mục mới nhất ngày: '+ ngaymoinhat);
 			
 		});
 		
@@ -365,7 +382,7 @@ function real_filemoi(){
 	filemoiref.on('value', function(data){
 		addThongbao('File mới: '+data.val().tenfile);
 		$('.tenfilemoinhatVM').html(data.val().tenfile);
-		notifi('File cập nhật gần nhất:\n' + data.val().tenfile);
+		notifi('File cập nhật gần nhất', data.val().tenfile);
 	});
 }
 function real_trunghang() {
@@ -373,7 +390,7 @@ function real_trunghang() {
 	trunghangref.on('value', function(data){
 		if (data.val().id.name != objToancuc.soRandom){
 			addThongbao('Mã mới sửa: '+ data.val().masp.tenma +', thuộc ngày: '+ data.val().ngaychon.tenngay+'.');
-			notifi('Vừa chỉnh sửa mã:\n'+ data.val().masp.tenma + '\nNgày: ' + data.val().ngaychon.tenngay );
+			notifi('Update trạng thái trưng hàng','Vừa chỉnh sửa mã: '+ data.val().masp.tenma + '\nNgày sửa: ' + data.val().ngaychon.tenngay );
 		}
 	});
 }
@@ -381,6 +398,8 @@ function real_trunghang() {
 //loc ma tong
 function loctheomatongVM(kitu){
 	objToancuc.tongsoma = objToancuc.tongmachuatrung = 0;
+	objToancuc.locHang = true;
+
 	var kituupper = kitu.toUpperCase();
 	var ngayref = db_2.ref().child('ngayduocban');
 	ngayref.once('value', function(snap){
@@ -395,7 +414,7 @@ function loctheomatongVM(kitu){
 					thamso += '<tr id="'+masp+'">';
 					thamso += '<td>'+masp+'</td>';
 					thamso += '<td id="chude'+masp+'">'+ccsnap.val().chude+'</td>';
-					thamso += '<td>'+ccsnap.val().ngayduocban+'</td>';
+					thamso += '<td id="ngay'+masp+'">'+ccsnap.val().ngayduocban+'</td>';
 					var trangthai = ccsnap.val().taikhoancnf[tencuahangVM].trangthaitrung;
 					if(trangthai == 'Đã Trưng Bán'){
 						thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
@@ -442,7 +461,7 @@ function addThongbao(noidung){
 	$("#gachthongbao").append('<li>'+ngaygio+': <strong class="text-secondary">' + noidung + '</strong></li>');
 }
 //notification web
-function notifi(noidung){
+function notifi(tieude, noidung){
 	Notification.requestPermission().then(function(result) {
 	  if (result === 'denied') {
 	  	return ;
@@ -452,7 +471,7 @@ function notifi(noidung){
 	      body: noidung,
 	      image: "picture/totoro1.png"
 		};
-		var n = new Notification('Thông báo cnf_hts !', options);
+		var n = new Notification(tieude, options);
 	  }
 	}); 
 }

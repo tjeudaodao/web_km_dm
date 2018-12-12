@@ -34,7 +34,7 @@ session_start();
 	<div class="container">
 		<div class="headerVM my-1">
 			<a href="index.php" class="mx-2"><i class="fas fa-angle-double-left"></i></a>
-			<p class="">Tài khoản: </p>
+			<p class="">Tài khoản _ Tên cửa hàng: </p>
 			<strong class="col text-danger"><p id="taikhoandangnhap"></p></strong>
 			<p class="hienthiDKVM">File cập nhật mới nhất: </p>
 			<p class="tenfilemoinhatVM hienthiDKVM text-success font-weight-bold font-italic mx-2"></p>
@@ -90,24 +90,24 @@ session_start();
 				<div class="khoithongtin">
 					<div class="row">
 						<p class="labelthongtinVM ">- Chủ đề:</p>
-						<p class="col bg-light text-left mr-2" id="chude">--</p>
+						<p class="col text-left mr-2" id="chude">--</p>
 					</div>
 					<div class="row">
 						<p class="labelthongtinVM ">- Mô tả:</p>
-						<p class="col bg-light text-left mr-2" id="mota">--</p>
+						<p class="col text-left mr-2" id="mota">--</p>
 					</div>
 					<div class="row">
 						<p class="labelthongtinVM ">- Ghi chú:</p>
-						<p class="col bg-light text-left mr-2" id="ghichu">--</p>
+						<p class="col text-left mr-2" id="ghichu">--</p>
 					</div>
 					<hr class="hrstyle">
 					<div class="thongsobangVM text-center">
 						<div>
-							<p>Tổng mã:</p> 
+							<p>Tổng<span class="anhienSoluong">mã:</span></p> 
 							<p class="soluongVM" id="somahangVM"></p>	
 						</div>
 						<div>
-							<p>Mã chưa trưng:</p> 
+							<p><span class="anhienSoluong">Mã</span>Chưa trưng:</p> 
 							<p class="soluongVM" id="somachuatrungVM"></p>
 						</div>
 						<div>
@@ -137,7 +137,8 @@ session_start();
 			<div class="fixThongbao">
 				<div>
 					<span>
-			        	<i class="fas fa-bell fa-stack-2x"></i>
+			     		 <i class="fas fa-bell fa-stack-2x"></i> 
+
 			    	</span>
 			    	<span class="sothongbao"></span>
 				</div>
@@ -190,7 +191,7 @@ session_start();
 				</div>
 				
 			</div>
-			<!-- modal khi co du lieu moi-->
+			<!-- modal xuat excel-->
 			<div class="modal fade" id="modalXuatexcelVM">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">

@@ -36,7 +36,7 @@ session_start();
 			</div>
 			<div>
 				<button type="button" class="btn btn-primary nutTO" data-toggle="modal" data-target="#modalDangNhapVm">
-					<h4><i class="fas fa-list-ol mx-3"></i>Danh muc VM</h4>
+					<h4><i class="fas fa-list-ol mx-3"></i>Danh mục VM</h4>
 				</button>
 				<!-- modal dang nhap -->
 				<div class="modal fade" id="modalDangNhapVm">
