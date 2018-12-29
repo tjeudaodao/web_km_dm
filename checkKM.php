@@ -79,30 +79,36 @@ if (!isset($_SESSION['checkKM'])) {
 						</div>
 					<!--div modal phan loc ma tong -->
 				<hr>
-				<div class="row align-middle">
-					<p class="col-5 ">Barcode:</p>
-					<p class="col-7 font-weight-bold font-italic text-center" style="font-size: 20px;"><span class="badge badge-secondary"><strong id="mabarcode"></strong></span></p>
-				</div>	
-				<div class="row align-middle">
-					<p class="col-5 ">Mã sản phẩm:</p>
-					<p class="col-7 font-weight-bold font-italic text-center" style="font-size: 30px;"><span class="badge badge-success"><strong id="masanpham"></strong></span></p>
+				<div class="showBarcode">
+					<div class="row align-middle">
+						<p class="tieudeKM">Barcode:</p>
+						<p class="thongsoKM font-weight-bold font-italic text-center" style="font-size: 20px;"><span class="badge badge-secondary"><strong id="mabarcode"></strong></span></p>
+					</div>	
+					<div class="row align-middle">
+						<p class="tieudeKM">Mã sản phẩm:</p>
+						<p class="thongsoKM font-weight-bold font-italic text-center" style="font-size: 30px;"><span class="badge badge-success"><strong id="masanpham"></strong></span></p>
+					</div>
 				</div>
 				
+				
 			</div>
-			<hr>
-			<div class="fontchu">
-				<div class="center noidung  bg-light my-1" style="font-size: 1.3em;">
-					<p id="giachot">Giá chốt</p>
+			<hr class="hrstyle1">
+			<div class="ketquaKM">
+				<div class="fontchu">
+					<div class="center noidung  bg-light" style="font-size: 1.3em;">
+						<p id="giachot">Giá chốt</p>
+					</div>
+					<div class="center noidung bg-light" style="font-size: 1em;">
+						<p  id="sophantram">Số % giảm</p>
+					</div>
 				</div>
-				<div class="center noidung bg-light my-3" style="font-size: 1em;">
-					<p  id="sophantram">Số % giảm</p>
+				
+				<div class="center">
+					<button type="button" class="btn btn-success scan" data-toggle="modal" data-target="#scanBarcode">
+					 <span class="mx-4"><i class="fa fa-barcode"></i></span>Scan<i class="fas fa-video mx-4"></i></button>
 				</div>
 			</div>
 			
-			<div class="center">
-				<button type="button" class="btn btn-success scan my-1" data-toggle="modal" data-target="#scanBarcode">
-					 <span class="mx-4"><i class="fa fa-barcode"></i></span>Scan<i class="fas fa-video mx-4"></i></button>
-			</div>
 			<!-- div modal goi man hinh scan barcode-->
 			<div class="modal fade" id="scanBarcode">
 				<div class="modal-dialog modal-dialog-centered">

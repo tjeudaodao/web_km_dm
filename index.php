@@ -49,6 +49,7 @@ session_start();
 								</button>
 							</div>
 							<div class="modal-body ml-2">
+								<!--
 								<div class="row my-2">
 									<label class="control-label col-4">Tài khoản</label>
 									<input class="form-control col mr-2" type="text" name="tendangnhap" id="tendangnhap">
@@ -56,6 +57,12 @@ session_start();
 								<div class="row my-3">
 									<label class="control-label col-4">Mật khẩu</label>
 									<input class="form-control col mr-2" type="password" name="matkhaudangnhap" id="matkhaudangnhap">
+								</div>
+								-->
+								<div class="form-group">
+								    <label class="text-secondary" style="font-size: 14px;">Chọn cửa hàng</label>
+								    <select class="form-control text-center text-info font-weight-bold" id="choncuahangVM" style="border-radius: 4px;">
+								    </select>
 								</div>
 								<div class="text-center" >
 									<button type="button" class="btn btn-primary my-4" id="dangnhap" name="dangnhap" style="width: 70%;">Đăng nhập</button>

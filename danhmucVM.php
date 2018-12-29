@@ -43,19 +43,19 @@ session_start();
 		<div class="main">
 			
 			<div class="khoianhchonngayVM" >
-				<div class="col-6">
-					<div class="khunganh">
+				<div>
+					<div class="khunganh bg-blue">
 						<img class="rounded" src="picture/totoro1.png" id="anhsanphamVM">
 						<div class="loadinganh">
 							<i class="fas fa-spinner fa-spin"></i>
 						</div>
 						<div class="mahang_anh">
-							<p class=" font-weight-bold text-center"><span class="badge badge-secondary"><strong id="hienthimatongVM">Mã hàng</strong></span></p>
+							<p class="font-weight-bold"><span class="badge badge-secondary"><strong id="hienthimatongVM">Mã hàng</strong></span></p>
 						</div>
 						
 					</div>
 				</div>
-				<div class="col-6 text-center khoichonngay" style="height: 155px;" >
+				<div style="height: 155px;" >
 				
 					<div class="form-group">
 						<div class='input-group'>
@@ -72,7 +72,7 @@ session_start();
 					    </select>
 					 </div>
 					
-					<p class=" font-weight-bold  text-center"><span class="badge badge-success" id="mautrungbanVM"><strong id="hienthitrunghangVM">Trạng thái trưng</strong></span></p>
+					<p class="font-weight-bold"><span class="badge badge-success" id="mautrungbanVM"><strong id="hienthitrunghangVM">Trạng thái trưng</strong></span></p>
 					
 				</div>
 				<!-- footer -->
@@ -120,10 +120,11 @@ session_start();
 					<table id="bangVM" class="table table-fixed">
 						<thead>
 							<tr>
-								<th width="20%">Mã</th>
-								<th width="60%">Chủ đề</th>
-								<th width="10%" class="dontprint">Trưng</th>
-								<th class="cottrunghangVM dontprint">Update</th>
+								<th class="hienTH1" >Mã</th>
+								<th class="hienTH2" >Chủ đề</th>
+								<th class="anhienCot">Mô tả</th>
+								<th class="dontprint hienTH5">Trưng</th>
+								<th class="cottrunghangVM dontprint hienTH6">Update</th>
 							</tr>
 						</thead>
 						<tbody id="bodytableVM" class="align-middle">

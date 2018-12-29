@@ -41,7 +41,7 @@ function xoatext(){
 	$("#barcode").val("");
 }
 function loadNgayCapNhat(){
-	$("#modalLoad").modal("show");
+	//$("#modalLoad").modal("show");
 	//setTimeout(function(){$("#modalLoad").modal("hide");},2000);
 	$.ajax({
 		url : "lib/layNgay.php",

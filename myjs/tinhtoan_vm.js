@@ -7,10 +7,14 @@ $(document).ready(function(){
   	objToancuc.soRandom = Math.floor((Math.random() * 100)+1);
     // su kien khi chon ngay tu select
     $("#chonngayVM").on('change', function(){
-    	objToancuc.ngaychonVM = chuyenngaythanhso($(this).val());
-        oluuMotaghichu = {};
-        document.getElementById('checkHienthitrunghangVM').checked = false;
-        loadbangtheongaychon(objToancuc.ngaychonVM);
+    	if(/\d{2}-\d{2}-\d{4}/.test($(this).val())){
+    		objToancuc.ngaychonVM = chuyenngaythanhso($(this).val());
+	        oluuMotaghichu = {};
+	        document.getElementById('checkHienthitrunghangVM').checked = false;
+	        loadbangtheongaychon(objToancuc.ngaychonVM);
+	        $("#chonngayVM option[value=chonlaingay]").attr("selected",false);
+    	}
+    	
     });
     // su kien khi click chon dong trong bang
     $(document).on("click", "#bangVM tr", function(e) {
@@ -110,15 +114,16 @@ $(document).ready(function(){
 			if ( kitu != '' && kitu != null){
 				oluuMotaghichu = {};
 				loctheomatongVM(kitu);
+				$("#chonngayVM option[value=chonlaingay]").attr("selected","selected");
 			}
 		}
 	}) 
 	$(".nuttimVM").click(function(){
 		var kitu = $("#nhapmatong").val();
-		console.log(kitu);
 		if ( kitu != '' && kitu != null){
 			oluuMotaghichu = {};
 			loctheomatongVM(kitu);
+			$("#chonngayVM option[value=chonlaingay]").attr("selected","selected");
 		}
 	});
 	//checkbox hien thi so ma chua trung
@@ -285,17 +290,18 @@ function loadbangtheongaychon(ngaychon){
 			objToancuc.tongsoma++;
 
 			thamso += '<tr id="'+masp+'">';
-			thamso += '<td>'+masp+'</td>';
-			thamso += '<td id="chude'+masp+'">'+masnapshot.val().chude+'</td>';
+			thamso += '<td >'+masp+'</td>';
+			thamso += '<td style="width:45%" id="chude'+masp+'">'+masnapshot.val().chude+'</td>';
+			thamso += '<td style="width:100%" class="anhienCot_body">'+ masnapshot.val().mota +'</td>';
 			var trangthai = masnapshot.val().taikhoancnf[tencuahangVM].trangthaitrung;
 			if(trangthai == 'Đã Trưng Bán'){
-				thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
+				thamso += '<td style="width:10%" id="trangthai'+masp+'"><i class="fas fa-check-square fa-2x"></i></td>';
 			}
 			else{
-				thamso += '<td width="10%" id="trangthai'+masp+'"><i class="fas fa-2x"></i></td>';
+				thamso += '<td style="width:10%" id="trangthai'+masp+'"><i class="fas fa-2x"></i></td>';
 				objToancuc.tongmachuatrung++;
 			}
-			thamso += '<td width="10%" class="dontprint"><button type="button" class="btn btn-warning" name="'+masp+'"><i class="fas fa-pen"></i></button></td>';
+			thamso += '<td style="width:10%" class="dontprint"><button type="button" class="btn btn-warning" name="'+masp+'"><i class="fas fa-pen"></i></button></td>';
 			
 			thamso += '</tr>';
 			$('#bodytableVM').append(thamso);
@@ -338,6 +344,7 @@ function laysongayVM(){
 		for (i = 0; i< kq.length ; i++){
 			$("#chonngayVM").append('<option>'+chuyensothanhngay(kq[i])+'</option>');
 		}
+		$("#chonngayVM").append('<option value="chonlaingay">Chọn lại ngày</option>');
 		$("#taikhoandangnhap").html(tencuahangVM);
 
 		objToancuc.ngaychonVM = kq[0];
@@ -364,7 +371,8 @@ function func_realtime(){
 			$("#chonngayVM option").remove();
 			for (i = 0; i< kq.length ; i++){
 				$("#chonngayVM").append('<option>'+chuyensothanhngay(kq[i])+'</option>');
-			} 
+			}
+			$("#chonngayVM").append('<option value="chonlaingay">Chọn lại ngày</option>'); 
 			var ngaymoinhat = chuyensothanhngay(kq[0]);
 			addThongbao('Danh mục mới nhất ngày: '+ ngaymoinhat);
 			objToancuc.ngaychonVM = kq[0];

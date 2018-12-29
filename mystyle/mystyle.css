@@ -6,10 +6,7 @@
 	height: 150px;
 	border-radius: 20px;
 }
-.khoichonngay p {
-	margin-top: 0;
-	margin-bottom: 3px;
-}
+
 .center {
 	display: flex;
 	text-align: center;
@@ -57,7 +54,9 @@ div#khoianh div {
 .noidung {
 	border-radius: 5%;
 }
-
+.ketquaKM .center{
+	margin: 5px auto;
+}
 #interactive.viewport {
 	position: relative; 
 	width: 100%; 
@@ -74,7 +73,19 @@ canvas.drawing, canvas.drawingBuffer {
 	left: 0; 
 	top: 0;
 }
-
+.showBarcode .row {
+	width: 100%;
+}
+.tieudeKM {
+	margin-left: 10px;
+	width: 30%;
+	float: left;
+}
+.thongsoKM {
+	margin-right: 5px;
+	float: right;
+	width: 65%;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 4px;
@@ -153,12 +164,12 @@ table#bangVM tr {
 .khunganh .mahang_anh {
 	position: absolute;
 	bottom: 0;
-	left: 18%;
+	left: 18%; 
 	font-size: 20px;
 }
 .khunganh .mahang_anh p {
-	padding: 0;
-	margin: 0;
+	padding: 0 auto;
+	margin: 0 auto;
 }
 .khunganh img {
 	height: 165px;
@@ -176,13 +187,17 @@ table#bangVM tr {
 }
 .khoianhchonngayVM {
 	display: inline-flex;
+	text-align: center;
 }
-.khoichonngay input {
+.khoianhchonngayVM .badge-success {
+	font-size: 14px;
+}
+.khoianhchonngayVM .form-group{
+	width: 70%;
+	margin: 10px auto;
+}
+.khoianhchonngayVM input {
 	font-size: 12px;
-	border-radius: 4px;
-}
-.khoichonngay p {
-	font-size: 18px;
 }
 .khoithongtin {
 	font-size: 13px;
@@ -220,7 +235,7 @@ table#bangVM tr {
 	display: none;
 }
 .anhienSoluong {
-	margin:0 2px;
+	margin:0 3.4px;
 	display: inline-flex;
 }
 .soluongVM {
@@ -327,6 +342,24 @@ input[type="search"]::-webkit-search-cancel-button {
 #chude, #mota, #ghichu {
 	background-color: #F4F7F7;
 }
+.anhienCot {
+	display: none;
+}
+.anhienCot_body {
+	display: none;
+}
+.hienTH1, .hienTH2, .hienTH5, .hienTH6{
+	display: inline-flex;
+}
+.hienTH1 {
+	width: 20%;
+}
+.hienTH2 {
+	width: 40%;
+}
+.hienTH6 {
+	width: 20%;
+}
 @media screen and (min-width: 320px) {
     .noidung {
     	height: 80px;
@@ -411,21 +444,69 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 @media screen and (min-width: 768px){
 	body {
-		background-color: #F4F7F7;
+		background-color: #E8E7DB;
 		width: 100vw;
 	}
 	.container {
 		width: 100vw;
 	}
-	
+	#pagecheckKM {
+		width: 35%;
+		float: left;
+		display: block;
+		text-align: center;
+		height: 90vh;
+		background-color: #FDFDFF;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		margin-top: 15px;
+		padding: 10px;
+	}
+	.ketquaKM {
+		width: 60%;
+		height: 90vh;
+		float: right;
+		background-color: #FDFDFF;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		padding: 10px;
+		margin-top: 15px;
+	}
+	.showBarcode .row{
+		display: block;
+		text-align: center;
+		padding: 15px auto;
+	}
+	.tieudeKM {
+		margin-left: 0;
+		width: 100%;
+	}
+	.thongsoKM {
+		margin-right: 0;
+		width: 100%;
+	}
+	.showBarcode  p { 
+		margin: 20px auto;
+	}
+	.ketquaKM .center{
+		margin: 20px auto;
+	}
+	.noidung {
+    	height: 200px;
+    	border-radius: 20px;
+    }
+    .ketquaKM button {
+    	width: 90%;
+    	height: 80px;
+    }
 	.berongnhapBarcode {
 		width: 60%;
 	}
+	.fontchu {
+		font-size: 80px;
+	}
 	table#table-hts th {
 		min-width: 150px;
-	}
-	#nhapdulieuKM button {
-		width: 150px;
 	}
 	.headerVM {
 		font-size: 14px;
@@ -442,34 +523,27 @@ input[type="search"]::-webkit-search-cancel-button {
 		height: 200px;
 		width: 200px;
 	}
-	.khunganh .mahang_anh {
-		font-size: 25px;
-		left: 25%;
+	.khunganh .mahang_anh{
+		font-size: 20px;
+		left: 33%;
 	}
 	.footerVM {
 		display: inline-block;
-		margin: 5px auto;
+		margin: 8px auto;
 	}
 	.footerVM button {
-		width: 200px;
-		margin: auto 10px;
+		width: 100%;
+		margin: auto 1px;
 	}
-	.khoichonngay .form-group{
-		width: 200px;
+	.khoianhchonngayVM .form-group{
+		width: 70%;
+		margin: 10px auto;
 	}
-	.khoichonngay input {
-		font-size: 18px;
-	}
-	.khoichonngay p {
-		font-size: 25px;
-		width: 200px;
-		margin: 5px auto;
-	}
-	.khoichonngay {
-		margin-bottom: 15px;
+	.khoianhchonngayVM input {
+		font-size: 14px;
 	}
 	.khoianhchonngayVM {
-		width: 35%;
+		width: 23%;
 		float: left;
 		display: block;
 		text-align: center;
@@ -477,18 +551,19 @@ input[type="search"]::-webkit-search-cancel-button {
 		background-color: #FDFDFF;
 		border-radius: 5px;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		margin: 0 auto;
+		padding-top: 5px;
 	}
-	.khoianhchonngayVM .col-6 {
-		width: 100%;
-		margin: 20px auto;
+	.khoianhchonngayVM .badge-success {
+		font-size: 16px;
+		margin-bottom: 8px;
 	}
 	.khoianhchonngayVM .xuatinVM {
 		display: inline-block;
 		width: 100%;
-		margin: 10px 15px;
 	}
 	.khoithanVM{
-		width: 60%;
+		width: 73%;
 		float: right;
 		background-color: #FDFDFF;
 		border-radius: 5px;
@@ -514,9 +589,6 @@ input[type="search"]::-webkit-search-cancel-button {
 	}
 	tbody#bodytableVM td button {
 		font-size: 16px;
-	}
-	#bangVM .cottrunghangVM {
-		width: 10%;
 	}
 	.khunganh .loadinganh {
 	    left: 50%;
@@ -551,6 +623,28 @@ input[type="search"]::-webkit-search-cancel-button {
 	}
 	.anhienSoluong {
 		display: inline-flex;
+	}
+	#bangVM thead tr th{
+		display: inline-flex;
+	}
+	.anhienCot {
+		display: inline-block;
+		width: 18%;
+	}
+	.anhienCot_body {
+		display: block;
+	}
+	.hienTH1 {
+		width: 15%;
+	}
+	.hienTH2 {
+		width: 42%;
+	}
+	.hienTH5 {
+		width: 10%;
+	}
+	.hienTH6 {
+		width: 10%;
 	}
 }
 
